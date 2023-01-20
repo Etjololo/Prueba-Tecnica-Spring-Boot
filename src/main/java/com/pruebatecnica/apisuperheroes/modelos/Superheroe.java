@@ -4,7 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 
-@Entity
+@Entity(name = "H2_Superheroes")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -17,6 +17,6 @@ public class Superheroe {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "NOMBRE")
+    @Column(name = "nombre")
     private String nombre;
 }
