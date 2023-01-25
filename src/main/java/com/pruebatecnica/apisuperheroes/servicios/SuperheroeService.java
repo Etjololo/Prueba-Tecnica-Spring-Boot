@@ -59,10 +59,10 @@ public class SuperheroeService {
         return superheroeResponse;
     }
 
-    public SuperheroeResponse updateSuperheroe(Long id, SuperheroeResponse superheroeResponse) {
+    public SuperheroeResponse updateSuperheroe(SuperheroeResponse superheroeResponse) {
         Superheroe superheroe = mapToSuperheroe(superheroeResponse);
 
-        if (superheroesRepository.existsById(id)) {
+        if (superheroesRepository.existsById(superheroe.getId())) {
             superheroesRepository.save(superheroe);
         }
 
