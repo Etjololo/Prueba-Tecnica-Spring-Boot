@@ -1,0 +1,17 @@
+version: '3.7'
+services:
+  api-superheroes:
+    container_name: api-superheroes
+    build:
+      dockerfile: Dockerfile
+    image: api-superheroes:latest
+    ports:
+      - 8080:8080
+#    pull_policy: always
+#    environment:
+#      - SPRING_PROFILES_ACTIVE=docker
+#    networks:
+#      - spring-cloud-network
+#networks:
+#  spring-cloud-network:
+#    driver: bridge
