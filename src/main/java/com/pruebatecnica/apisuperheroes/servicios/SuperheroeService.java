@@ -60,13 +60,14 @@ public class SuperheroeService {
     }
 
     public SuperheroeResponse updateSuperheroe(SuperheroeResponse superheroeResponse) {
+        SuperheroeResponse superheroeRespuesta = new SuperheroeResponse();
         Superheroe superheroe = mapToSuperheroe(superheroeResponse);
 
         if (superheroesRepository.existsById(superheroe.getId())) {
-            superheroesRepository.save(superheroe);
+            superheroeRespuesta = mapToSuperheroeResponse(superheroesRepository.save(superheroe));
         }
 
-        return superheroeResponse;
+        return superheroeRespuesta;
     }
 
     private SuperheroeResponse mapToSuperheroeResponse(Superheroe superheroe) {
