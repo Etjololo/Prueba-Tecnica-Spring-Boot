@@ -1,5 +1,6 @@
 package com.pruebatecnica.apisuperheroes.controlador;
 
+import com.pruebatecnica.apisuperheroes.custom.Tempo;
 import com.pruebatecnica.apisuperheroes.dto.SuperheroeResponse;
 import com.pruebatecnica.apisuperheroes.servicios.SuperheroeService;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,7 @@ public class SuperheroeController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     @Cacheable(value = "superheroes")
+    @Tempo
     public List<SuperheroeResponse> getAllSuperheroes() {
         return superheroeService.getAllSuperheroes();
     }
@@ -31,6 +33,7 @@ public class SuperheroeController {
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     @Cacheable(value = "superheroe")
+    @Tempo
     public ResponseEntity<SuperheroeResponse> getSuperheroe(@PathVariable Long id) {
         SuperheroeResponse isFound = superheroeService.getSuperheroe(id);
 
@@ -44,6 +47,7 @@ public class SuperheroeController {
     @GetMapping("/name/{nombre}")
     @ResponseStatus(HttpStatus.OK)
     @Cacheable(value = "superheroeByName")
+    @Tempo
     public List<SuperheroeResponse> getSuperheroeByName(@PathVariable String nombre) {
         return superheroeService.getSuperheroeByName(nombre);
     }
@@ -53,6 +57,7 @@ public class SuperheroeController {
             @CacheEvict(value="superheroes", allEntries=true),
             @CacheEvict(value="superheroeByName", allEntries=true),
             @CacheEvict(value="superheroe", allEntries=true)})
+    @Tempo
     public ResponseEntity<SuperheroeResponse> deleteSuperheroe(@PathVariable Long id) {
         SuperheroeResponse isRemoved = superheroeService.deleteSuperheroe(id);
 
@@ -68,6 +73,7 @@ public class SuperheroeController {
             @CacheEvict(value="superheroes", allEntries=true),
             @CacheEvict(value="superheroeByName", allEntries=true),
             @CacheEvict(value="superheroe", allEntries=true)})
+    @Tempo
     public ResponseEntity<SuperheroeResponse> updateSuperheroe(@RequestBody SuperheroeResponse superheroeResponse) {
         SuperheroeResponse isUpdated = superheroeService.updateSuperheroe(superheroeResponse);
 

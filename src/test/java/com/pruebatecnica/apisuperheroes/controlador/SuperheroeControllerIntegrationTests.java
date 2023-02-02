@@ -71,12 +71,6 @@ public class SuperheroeControllerIntegrationTests {
     }
 
     @Test
-    public void getSuperheroe_404() throws Exception {
-        mvc.perform(get(BASE_URL + "/6"))
-                .andExpect(status().isNotFound());
-    }
-
-    @Test
     public void updateSuperheroe_OK200() throws Exception {
         mvc.perform(put(BASE_URL)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -88,6 +82,18 @@ public class SuperheroeControllerIntegrationTests {
                 .andExpect(content()
                         .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("nombre").value("Daredevil"));
+    }
+
+    @Test
+    public void getSuperheroe_404() throws Exception {
+        mvc.perform(get(BASE_URL + "/6"))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void getAllSuperheroes_404() throws Exception {
+        mvc.perform(get(BASE_URL + "++"))
+                .andExpect(status().isNotFound());
     }
 
     @Test
@@ -108,8 +114,31 @@ public class SuperheroeControllerIntegrationTests {
     }
 
     @Test
-    public void handleExceptionTest() throws Exception {
+    public void getSuperheroe_500() throws Exception {
         mvc.perform(get(BASE_URL + "/6++"))
+                .andExpect(status().is5xxServerError());
+    }
+
+    @Test
+    public void getSuperheroeByName_500() throws Exception {
+        mvc.perform(get(BASE_URL + "/name/"))
+                .andExpect(status().is5xxServerError());
+    }
+
+    @Test
+    public void deleteSuperheroe_500() throws Exception {
+        mvc.perform(delete(BASE_URL + "/6++"))
+                .andExpect(status().is5xxServerError());
+    }
+
+    @Test
+    public void updateSuperheroe_500() throws Exception {
+        mvc.perform(put(BASE_URL)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\n" +
+                                "    \"id\": 6++,\n" +
+                                "    \"nombre\": \"Daredevil\"\n" +
+                                "}"))
                 .andExpect(status().is5xxServerError());
     }
 }
