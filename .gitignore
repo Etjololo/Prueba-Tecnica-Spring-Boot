@@ -38,3 +38,4 @@ logs/spring-boot-logger-log4j2.log
 *.log
 *.log
 logs/spring-boot-logger-log4j2.log
+*.log

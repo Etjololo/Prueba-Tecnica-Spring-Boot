@@ -31,8 +31,14 @@ public class SuperheroeController {
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     @Cacheable(value = "superheroe")
-    public SuperheroeResponse getSuperheroe(@PathVariable Long id) {
-        return superheroeService.getSuperheroe(id);
+    public ResponseEntity<SuperheroeResponse> getSuperheroe(@PathVariable Long id) {
+        SuperheroeResponse isFound = superheroeService.getSuperheroe(id);
+
+        if (isFound == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(isFound, HttpStatus.OK);
     }
 
     @GetMapping("/name/{nombre}")
@@ -63,12 +69,12 @@ public class SuperheroeController {
             @CacheEvict(value="superheroeByName", allEntries=true),
             @CacheEvict(value="superheroe", allEntries=true)})
     public ResponseEntity<SuperheroeResponse> updateSuperheroe(@RequestBody SuperheroeResponse superheroeResponse) {
-        SuperheroeResponse isRemoved = superheroeService.updateSuperheroe(superheroeResponse);
+        SuperheroeResponse isUpdated = superheroeService.updateSuperheroe(superheroeResponse);
 
-        if (isRemoved == null) {
+        if (isUpdated == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        return new ResponseEntity<>(isRemoved, HttpStatus.OK);
+        return new ResponseEntity<>(isUpdated, HttpStatus.OK);
     }
 }

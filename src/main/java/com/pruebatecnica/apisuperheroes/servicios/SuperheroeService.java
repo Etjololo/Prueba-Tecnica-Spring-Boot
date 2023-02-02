@@ -28,7 +28,7 @@ public class SuperheroeService {
     }
 
     public SuperheroeResponse getSuperheroe(Long id) {
-        SuperheroeResponse superheroeResponse = new SuperheroeResponse();
+        SuperheroeResponse superheroeResponse = null;
 
         if (superheroesRepository.existsById(id)) {
             superheroeResponse = mapToSuperheroeResponse(superheroesRepository.findById(id).get());
@@ -49,7 +49,7 @@ public class SuperheroeService {
     }
 
     public SuperheroeResponse deleteSuperheroe(Long id) {
-        SuperheroeResponse superheroeResponse = new SuperheroeResponse();
+        SuperheroeResponse superheroeResponse = null;
 
         if (superheroesRepository.existsById(id)) {
             superheroeResponse = mapToSuperheroeResponse(superheroesRepository.findById(id).get());
@@ -60,7 +60,7 @@ public class SuperheroeService {
     }
 
     public SuperheroeResponse updateSuperheroe(SuperheroeResponse superheroeResponse) {
-        SuperheroeResponse superheroeRespuesta = new SuperheroeResponse();
+        SuperheroeResponse superheroeRespuesta = null;
         Superheroe superheroe = mapToSuperheroe(superheroeResponse);
 
         if (superheroesRepository.existsById(superheroe.getId())) {
